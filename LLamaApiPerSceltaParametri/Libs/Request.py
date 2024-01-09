@@ -1,10 +1,9 @@
+from Params.params import Getkey
 #fa la richiesta all'api di LLama
 def DoRequest(Attivita):
     from llamaapi import LlamaAPI
-    
-    llama = LlamaAPI("")
+    llama = LlamaAPI(Getkey())
 
-    # so che così è brutto ma vai tu nella documentazione di LLama a capire come si fa a passare un parametro, buona fortuna.
     api_request_json = {
         "messages":[{"role": "user", "content": '''
         dato il seguente json e un input da utente che indica l'attività che ha svolto in giornata, ritorna solo il dato che potrebbe indicare meglio la sua attività,
@@ -115,3 +114,6 @@ def DoRequest(Attivita):
 
     response = llama.run(api_request_json)
     return response.json()["choices"][0]["message"]["content"]
+
+if __name__ == "__main__":
+    print(Getkey())
